@@ -3,7 +3,10 @@ version '1.0'
 
 apply plugin: 'java'
 
-sourceCompatibility = 1.5
+task(runSimple, dependsOn: 'classes', type: JavaExec) {
+    main = 'com.slavauz.jettyjerseysimple.Application'
+    classpath = sourceSets.main.runtimeClasspath
+}
 
 repositories {
     mavenCentral()
@@ -18,4 +21,5 @@ dependencies {
     compile group: 'org.glassfish.jersey.containers', name: 'jersey-container-jetty-http', version: '2.23.2'
     compile group: 'org.glassfish.jersey.media', name: 'jersey-media-moxy', version: '2.23.2'
     compile group: 'org.glassfish.jersey.media', name: 'jersey-media-json-jackson', version: '2.23.2'
+    //compile group: 'com.fasterxml.jackson.jaxrs', name: 'jackson-jaxrs-json-provider', version: '2.8.1'
 }

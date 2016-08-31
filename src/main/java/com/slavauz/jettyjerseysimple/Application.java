@@ -31,8 +31,13 @@ public class Application {
         restServletHolder.setInitOrder(0);
         restServletHolder.setInitParameter(
                 "jersey.config.server.provider.classnames",
-                TasksResource.class.getCanonicalName() + "," +
-                        UsersResource.class.getCanonicalName());
+                 TasksResource.class.getCanonicalName() + "," +
+                 UsersResource.class.getCanonicalName());
+
+        // for json
+        restServletHolder.setInitParameter(
+                "jersey.config.server.provider.packages",
+                "com.jersey.jaxb,com.fasterxml.jackson.jaxrs.json");
 
         try {
             server.start();
