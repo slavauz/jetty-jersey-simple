@@ -4,6 +4,9 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -39,6 +42,15 @@ public class Application {
                 "jersey.config.server.provider.packages",
                 "com.jersey.jaxb,com.fasterxml.jackson.jaxrs.json");
 
+        Person p = new Person();
+        p.setName("Slava");
+        p.setSurname("Uzkikh");
+
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("H2PersistenceUnit");
+        EntityManager em = emf.createEntityManager();
+        em.persist(p);
+
+        System.out.println("Id: " + p.getId());
         try {
             server.start();
             server.join();

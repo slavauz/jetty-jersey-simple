@@ -1,5 +1,6 @@
 package com.slavauz.jettyjerseysimple;
 
+import javax.persistence.*;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -13,30 +14,12 @@ import java.util.List;
 @Path("users")
 public class UsersResource {
 
-    private static class Person {
-        private String name;
-        private String surname;
-
-        public Person(String name, String surname) {
-            this.name = name;
-            this.surname = surname;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public String getSurname() {
-            return surname;
-        }
-    }
-
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Person> users() {
-        List<Person> responce = new ArrayList<>();
-        responce.add(new Person("Slava", "Uzkikh"));
-        responce.add(new Person("Max", "Uzkikh"));
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("H2PersistenceUnit");
+        EntityManager em = emf.createEntityManager();
+        List<Person> responce = (List<Person>)em.createQuery("SELECT p FROM Person p").getResultList();
         return responce;
     }
 }
