@@ -1,0 +1,9 @@
+# For all projects
+.idea/
+.gradle/
+out/
+build/
+
+# database in this project
+test.mv.db
+
